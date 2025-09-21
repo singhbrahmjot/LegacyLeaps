@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LegacyLeap AS/400 Modernization Assistant
+
+A modern web application that helps transform legacy AS/400 data into modern, cloud-ready microservices with REST APIs, database schemas, and data visualizations.
+
+## Features
+
+- **File Upload**: Upload AS/400 data files for processing
+- **Multi-Agent Processing**: AI-powered modernization pipeline
+- **Data Transformation**: Convert legacy data to modern JSON format
+- **Database Schema Generation**: Create PostgreSQL schemas
+- **REST API Generation**: Generate Next.js API endpoints
+- **Data Visualizations**: Interactive charts and analytics
+- **Microservices Architecture**: Recommendations for scalable architecture
+- **Download Ready**: Get deployable application packages
+
+## Technology Stack
+
+- **Frontend**: Next.js 15, React, TypeScript
+- **Styling**: Tailwind CSS
+- **Charts**: Chart.js
+- **File Processing**: JSZip, FileSaver
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/thehaniyaakhtar/LegacyLeap-Beta.git
+cd LegacyLeap-Beta
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. **Upload File**: Select an AS/400 data file using the upload interface
+2. **Process**: Click "Modernize Now" to start the AI-powered transformation
+3. **Review Results**: View the processing timeline and generated outputs
+4. **Analyze Data**: Explore data visualizations and insights
+5. **Download**: Get the complete modernized application as a ZIP file
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── api/
+│   │   └── modernize/
+│   │       └── route.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── public/
+└── ...
+```
 
-## Deploy on Vercel
+## API Endpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `POST /api/modernize` - Process uploaded AS/400 files
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repository to Vercel
+2. Deploy automatically on every push to main branch
+3. Environment variables are handled automatically
+
+### Manual Deployment
+
+1. Build the project:
+```bash
+npm run build
+```
+
+2. Start the production server:
+```bash
+npm start
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support and questions, please open an issue on GitHub.
