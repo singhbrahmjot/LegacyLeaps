@@ -14,7 +14,7 @@ export default function Home() {
     microservices?: string;
     fullAppFiles?: Record<string, string>;
     agentSteps?: Array<{ agent: string; output: string; status: string }>;
-    queriedData?: unknown;
+    queriedData?: string;
   } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +51,7 @@ export default function Home() {
     try {
       const res = await fetch(`/api/customers?${query}`);
       const data = await res.json();
-      setResult((prev) => prev ? { ...prev, queriedData: data } : null);
+      setResult((prev) => prev ? { ...prev, queriedData: JSON.stringify(data, null, 2) } : null);
     } catch {
       setError('Query failed. Check the query format (e.g., id=10001).');
     }
@@ -286,7 +286,7 @@ export default function Home() {
                 </form>
                 {result.queriedData && (
                   <pre className="bg-gray-50 p-4 rounded-md mt-4 text-xs overflow-x-auto font-mono max-h-32">
-                    {JSON.stringify(result.queriedData, null, 2)}
+                    {result.queriedData}
                   </pre>
                 )}
               </div>
