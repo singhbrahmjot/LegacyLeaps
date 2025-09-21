@@ -68,7 +68,8 @@ export default function Home() {
     });
   };
 
-  const getChartData = (): { doughnut: unknown; bar: unknown } | null => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getChartData = (): { doughnut: any; bar: any } | null => {
     if (!result?.jsonData || !Array.isArray(result.jsonData)) return null;
 
     const emailDomains = result.jsonData.reduce((acc: Record<string, number>, item: unknown) => {
