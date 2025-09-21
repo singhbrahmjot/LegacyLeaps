@@ -117,9 +117,9 @@ export async function POST(req: NextRequest) {
     } catch (aiError: unknown) {
       console.error('Multi-Agent Error:', {
         message: aiError instanceof Error ? aiError.message : 'Unknown error',
-        status: (aiError as any)?.response?.status,
-        data: (aiError as any)?.response?.data,
-        config: (aiError as any)?.config?.url
+        status: (aiError as { response?: { status?: number } })?.response?.status,
+        data: (aiError as { response?: { data?: unknown } })?.response?.data,
+        config: (aiError as { config?: { url?: string } })?.config?.url
       });
       // Enhanced fallback for full app
       const fallbackAppFiles = {
