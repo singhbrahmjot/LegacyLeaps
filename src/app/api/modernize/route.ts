@@ -114,12 +114,12 @@ export async function POST(req: NextRequest) {
         ]
       });
 
-    } catch (aiError: any) {
+    } catch (aiError: unknown) {
       console.error('Multi-Agent Error:', {
-        message: aiError.message,
-        status: aiError.response?.status,
-        data: aiError.response?.data,
-        config: aiError.config?.url
+        message: aiError instanceof Error ? aiError.message : 'Unknown error',
+        status: (aiError as any)?.response?.status,
+        data: (aiError as any)?.response?.data,
+        config: (aiError as any)?.config?.url
       });
       // Enhanced fallback for full app
       const fallbackAppFiles = {

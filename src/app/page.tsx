@@ -6,7 +6,16 @@ import { saveAs } from 'file-saver';
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{
+    original?: string;
+    jsonData?: unknown[];
+    dbSchema?: string;
+    apiCode?: string;
+    microservices?: string;
+    fullAppFiles?: Record<string, string>;
+    agentSteps?: Array<{ agent: string; output: string; status: string }>;
+    queriedData?: unknown;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('');
@@ -42,8 +51,8 @@ export default function Home() {
     try {
       const res = await fetch(`/api/customers?${query}`);
       const data = await res.json();
-      setResult((prev: any) => ({ ...prev, queriedData: data }));
-    } catch (err) {
+      setResult((prev) => prev ? { ...prev, queriedData: data } : null);
+    } catch {
       setError('Query failed. Check the query format (e.g., id=10001).');
     }
   };
@@ -59,18 +68,18 @@ export default function Home() {
     });
   };
 
-  const getChartData = (): { doughnut: any; bar: any } | null => {
+  const getChartData = (): { doughnut: unknown; bar: unknown } | null => {
     if (!result?.jsonData || !Array.isArray(result.jsonData)) return null;
 
-    const emailDomains = result.jsonData.reduce((acc: Record<string, number>, item: any) => {
-      const email = item.Email || '';
+    const emailDomains = result.jsonData.reduce((acc: Record<string, number>, item: unknown) => {
+      const email = (item as { Email?: string }).Email || '';
       const domain = email.includes('@') ? email.split('@')[1] || 'Unknown' : 'Unknown';
       acc[domain] = (acc[domain] || 0) + 1;
       return acc;
     }, {});
 
-    const nameLengthCategories = result.jsonData.reduce((acc: Record<string, number>, item: any) => {
-      const name = item.CustomerName || '';
+    const nameLengthCategories = result.jsonData.reduce((acc: Record<string, number>, item: unknown) => {
+      const name = (item as { CustomerName?: string }).CustomerName || '';
       const length = name.length;
       const category = length < 10 ? 'Short Name' : length < 15 ? 'Medium Name' : 'Long Name';
       acc[category] = (acc[category] || 0) + 1;
@@ -195,7 +204,7 @@ export default function Home() {
                 </div>
                 <div className="max-w-4xl mx-auto">
                   <div className="space-y-4">
-                    {result.agentSteps.map((step: any, index: number) => (
+                    {result.agentSteps.map((step, index: number) => (
                       <div key={index} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-md">
                         <div className={`w-3 h-3 rounded-full ${step.status === 'complete' ? 'bg-green-500' : 'bg-gray-300'}`}></div>
                         <span className="font-medium text-gray-800">{step.agent}:</span>
